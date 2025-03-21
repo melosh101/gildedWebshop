@@ -1,13 +1,154 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Elegance | Your Clothing Brand</title>
+	</head>
+	<body>
+		<main class="min-h-screen bg-white text-black">
+			<div class="bg-green-500 text-white py-2 sm:py-3 text-center">
+				<p class="text-sm md:text-lg font-medium uppercase">
+					Limited Time Offer: 20% Off All Products - Shop Now!
+				</p>
+			</div>
+			<header
+				class="grid grid-cols-3 items-center px-4 sm:px-8 md:px-16 lg:px-40 py-4 sm:py-6 lg:py-10"
+			>
+				<div class="flex items-center">
+					<input
+						type="text"
+						placeholder="SEARCH"
+						class="bg-transparent focus:outline-none pr-2 w-16 sm:w-auto"
+					/>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="text-gray-700 sm:w-5 sm:h-5"
+					>
+						<circle cx="11" cy="11" r="8" />
+						<path d="m21 21-4.3-4.3" />
+					</svg>
+				</div>
+
+				<h2
+					class="text-3xl sm:text-4xl lg:text-5xl font-medium text-center"
+				>
+					ELEGANCE
+				</h2>
+
+				<div class="flex items-center justify-end">
+					<a
+						href="/cart"
+						class="px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base inline-block transition-colors"
+						>Cart</a
+					>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="text-gray-700 sm:w-6 sm:h-6"
+					>
+						<circle cx="8" cy="21" r="1" />
+						<circle cx="19" cy="21" r="1" />
+						<path
+							d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+						/>
+					</svg>
+				</div>
+			</header>
+			<section
+				class="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-40 relative"
+			>
+				<div
+					class="w-full border-t-2 border-b-2 border-neutral-200 py-2 sm:py-4"
+				>
+					<div
+						class="flex flex-wrap gap-4 sm:gap-6 md:gap-8 lg:gap-12 justify-center px-2 sm:px-4 md:px-8"
+					>
+						<a href="/" class="relative group">
+							<span
+								class="text-sm sm:text-base hover:text-gray-800"
+								>Home</span
+							>
+							<span
+								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
+							></span>
+						</a>
+						<a href="/shop" class="relative group">
+							<span
+								class="text-sm sm:text-base hover:text-gray-800"
+								>Shop</span
+							>
+							<span
+								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
+							></span>
+						</a>
+						<a href="/news-events" class="relative group">
+							<span
+								class="text-sm sm:text-base hover:text-gray-800"
+								>News & Events</span
+							>
+							<span
+								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
+							></span>
+						</a>
+						<a href="/about" class="relative group">
+							<span
+								class="text-sm sm:text-base hover:text-gray-800"
+								>About</span
+							>
+							<span
+								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
+							></span>
+						</a>
+						<a href="/contact" class="relative group">
+							<span
+								class="text-sm sm:text-base hover:text-gray-800"
+								>Contact</span
+							>
+							<span
+								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
+							></span>
+						</a>
+					</div>
+				</div>
+				<img
+					src="/background.jpg"
+					alt="Background"
+					class="w-full max-w-7xl mx-auto py-4 sm:py-6 lg:py-10 rounded-br-full rounded-tl-full"
+				/>
+				<div
+					class="bg-neutral-100 h-36 w-96 absolute bottom-2 flex justify-center items-center flex-col rounded-md"
+				>
+					<h1 class="text-3xl font-medium p-2">
+						OUR FAVORITE BRANDS
+					</h1>
+					<button
+						aria-label="shop now"
+						class="underline underline-offset-8"
+					>
+						SHOP NOW
+					</button>
+				</div>
+			</section>
+
+			<div class="md:p-10"></div>
+		</main>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
 </html>
