@@ -1,15 +1,23 @@
-# server
+# Getting Started with [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
+This project was bootstrapped with Fastify-CLI.
 
-To install dependencies:
+## Available Scripts
 
-```bash
-bun install
-```
+In the project directory, you can run:
 
-To run:
+### `npm run dev`
 
-```bash
-bun run index.ts
-```
+To start the app in dev mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-This project was created using `bun init` in bun v1.2.0. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+### `npm start`
+
+For production mode
+
+### `npm run test`
+
+Run the test cases.
+
+## Learn More
+
+To learn Fastify, check out the [Fastify documentation](https://fastify.dev/docs/latest/).
