@@ -13,7 +13,7 @@
 		<title>Elegance | Dit Tøjmærke</title>
 	</head>
 	<body>
-		<main class="min-h-[150vh] bg-white text-black">
+		<main class="min-h-screen bg-white text-black">
 			<div class="bg-green-500 text-white py-2 sm:py-3 text-center">
 				<p class="text-sm md:text-lg font-medium uppercase">
 					Tidsbegrænset Tilbud: 20% Rabat På Alle Produkter - Køb Nu!
@@ -46,7 +46,7 @@
 				</div>
 
 				<h2
-					class="text-3xl sm:text-4xl lg:text-5xl font-medium text-center"
+					class="text-x3xl sm:text-4xl lg:text-5xl font-medium text-center"
 				>
 					<a href="/">ELEGANCE</a>
 				</h2>
@@ -78,107 +78,7 @@
 					</a>
 				</div>
 			</header>
-			<section
-				class="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-40 relative"
-			>
-				<div
-					class="w-full border-t-2 border-b-2 border-neutral-200 py-2 sm:py-4"
-				>
-					<div
-						class="flex flex-wrap gap-4 sm:gap-6 md:gap-8 lg:gap-12 justify-center px-2 sm:px-4 md:px-8"
-					>
-						<a href="/" class="relative group">
-							<span
-								class="text-sm sm:text-base hover:text-gray-800"
-								>Hjem</span
-							>
-							<span
-								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
-							></span>
-						</a>
-						<a href="/shop" class="relative group">
-							<span
-								class="text-sm sm:text-base hover:text-gray-800"
-								>Butik</span
-							>
-							<span
-								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
-							></span>
-						</a>
-						<a href="/" class="relative group">
-							<span
-								class="text-sm sm:text-base hover:text-gray-800"
-								>Nyheder & Begivenheder</span
-							>
-							<span
-								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
-							></span>
-						</a>
-						<a href="/" class="relative group">
-							<span
-								class="text-sm sm:text-base hover:text-gray-800"
-								>Om Os</span
-							>
-							<span
-								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
-							></span>
-						</a>
-						<a href="/" class="relative group">
-							<span
-								class="text-sm sm:text-base hover:text-gray-800"
-								>Kontakt</span
-							>
-							<span
-								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
-							></span>
-						</a>
-					</div>
-				</div>
-				<figure class="overflow-clip h-96 md:h-auto mt-4 md:mt-auto">
-					<img
-						src="/background.jpg"
-						alt="Baggrund"
-						class="w-full max-w-7xl mx-auto py-4 sm:py-6 lg:py-10 md:rounded-br-full md:rounded-tl-full md:scale-100 scale-200"
-					/>
-				</figure>
-				<div
-					class="bg-neutral-100 md:h-36 md:w-96 absolute bottom-2 flex justify-center items-center flex-col rounded-md"
-				>
-					<h1 class="text-2xl font-medium p-2">
-						VORES FORETRUKNE MÆRKER
-					</h1>
-					<button
-						aria-label="køb nu"
-						class="underline underline-offset-8"
-					>
-						KØB NU
-					</button>
-				</div>
-			</section>
-
-			<section
-				class="items-center px-4 sm:px-8 md:px-16 lg:px-40 relative"
-			>
-				<div class="w-full border-b-2 border-neutral-200 py-2 sm:py-4"></div>
-				
-				<div class="flex flex-col lg:flex-row justify-between md:max-w-5xl py-10 md:py-20 gap-8 md:gap-12 mx-auto">
-					<div class="max-w-lg space-y-4">
-						<h2 class="text-2xl md:text-3xl font-medium">VORES HISTORIE</h2>
-						<p class="text-sm md:text-base text-balance">Hos Elegance tror vi på, at mode skal styrke og inspirere, samtidig med at det er skånsomt mod planeten. Vores rejse begyndte med idéen om at skabe stilfuldt tøj af høj kvalitet, der ikke går på kompromis med bæredygtighed. Vi er her for at tilbyde et alternativ til fast fashion, der værdsætter både design og miljø.</p>
-						<p class="text-sm md:text-base text-balance">Hvert stykke i vores kollektion er omhyggeligt fremstillet af miljøvenlige materialer som økologisk bomuld og genanvendte stoffer. Vi prioriterer etiske produktionsmetoder og sikrer fair løn og sikre arbejdsforhold for alle involverede. Bæredygtighed styrer alt, hvad vi gør, fra design til levering.</p>
-						<p class="text-sm md:text-base text-balance">Vores mål er enkelt: at hjælpe dig med at opbygge en garderobe, der afspejler dine værdier, samtidig med at du gør en positiv forskel. Vær med til at skabe en mere bæredygtig fremtid, hvor stil og bevidste valg går hånd i hånd.</p>
-						<button class="bg-black py-2 px-6 text-white rounded-md hover:bg-gray-800 transition-colors">
-							LÆS MERE
-						</button>
-					</div>
-					
-					<img 
-						src="https://placehold.co/400x400" 
-						class="w-full md:w-auto object-cover rounded-lg shadow-md" 
-						alt="Vores Historie Billede"
-					>
-				</div>
-			</section>
+			<div id="products-container"></div>
 
 			<footer
 				class="items-center px-4 sm:px-8 md:px-16 lg:px-40 relative"
@@ -231,6 +131,7 @@
 				</div>
 			</footer>
 		</main>
+		<script src="script.ts" defer></script>
 		<script type="module" src="/src/main.ts"></script>
 	</body>
 </html>
