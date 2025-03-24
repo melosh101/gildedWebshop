@@ -3,8 +3,8 @@ import db from "../../db";
 import z from "zod";
 
 const productList = z.object({
-  page: z.number().min(1).default(1),
-  count: z.number().min(1).default(20)
+  page: z.coerce.number().min(1).default(1),
+  count: z.coerce.number().min(1).default(20)
 })
 
 const products: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
