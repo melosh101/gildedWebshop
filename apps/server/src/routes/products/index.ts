@@ -1,6 +1,8 @@
 import { FastifyPluginAsync } from "fastify"
 import db from "../../db";
 import z from "zod";
+import { productTable } from "../../db/schema";
+import { count, sql } from "drizzle-orm";
 
 const productList = z.object({
   page: z.coerce.number().min(1).default(1),
@@ -20,15 +22,23 @@ const products: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       return;
     }
 
-    const prods = db.query.productTable.findMany({
+    const prods = await db.query.productTable.findMany({
       with: {
         productVariant: true
       },
       limit: 20,
       offset: (body.data.page - 1) * 20
-    })
-
-    return prods;
+    });
+    console.log("counting")
+    const [totalProds] = await db.select({count: sql`count(*)`.mapWith(Number)}).from(productTable);
+    console.log(totalProds.count);
+    return {
+      total: totalProds.count,
+      pageSize: body.data.count,
+      page: body.data.page,
+      maxPages: Math.ceil(totalProds.count / body.data.count),
+      data: prods
+    };
   })
 }
 
