@@ -1,16 +1,22 @@
 <!doctype html>
-<html lang="en">
+<html lang="da">
 	<head>
 		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<link rel="icon" type="image/svg+xml" href="/logo.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+			rel="stylesheet"
+		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Elegance | Your Clothing Brand</title>
+		<title>Elegance | Dit Tøjmærke</title>
 	</head>
 	<body>
-		<main class="min-h-screen bg-white text-black">
+		<main class="min-h-[150vh] bg-white text-black">
 			<div class="bg-green-500 text-white py-2 sm:py-3 text-center">
 				<p class="text-sm md:text-lg font-medium uppercase">
-					Limited Time Offer: 20% Off All Products - Shop Now!
+					Tidsbegrænset Tilbud: 20% Rabat På Alle Produkter - Køb Nu!
 				</p>
 			</div>
 			<header
@@ -19,8 +25,8 @@
 				<div class="flex items-center">
 					<input
 						type="text"
-						placeholder="SEARCH"
-						class="bg-transparent focus:outline-none pr-2 w-16 sm:w-auto"
+						placeholder="SØG"
+						class="bg-transparent focus:outline-none pr-2 w-20 sm:w-auto"
 					/>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -48,27 +54,28 @@
 				<div class="flex items-center justify-end">
 					<a
 						href="/cart"
+						aria-label="kurv"
 						class="px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base inline-block transition-colors"
-						>Cart</a
 					>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						class="text-gray-700 sm:w-6 sm:h-6"
-					>
-						<circle cx="8" cy="21" r="1" />
-						<circle cx="19" cy="21" r="1" />
-						<path
-							d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
-						/>
-					</svg>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="text-gray-700 sm:w-6 sm:h-6"
+						>
+							<circle cx="8" cy="21" r="1" />
+							<circle cx="19" cy="21" r="1" />
+							<path
+								d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+							/>
+						</svg>
+					</a>
 				</div>
 			</header>
 			<section
@@ -80,10 +87,10 @@
 					<div
 						class="flex flex-wrap gap-4 sm:gap-6 md:gap-8 lg:gap-12 justify-center px-2 sm:px-4 md:px-8"
 					>
-						<a href="/" class="relative group">
+						<a href="#" class="relative group">
 							<span
 								class="text-sm sm:text-base hover:text-gray-800"
-								>Home</span
+								>Hjem</span
 							>
 							<span
 								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
@@ -92,34 +99,34 @@
 						<a href="/shop" class="relative group">
 							<span
 								class="text-sm sm:text-base hover:text-gray-800"
-								>Shop</span
+								>Butik</span
 							>
 							<span
 								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
 							></span>
 						</a>
-						<a href="/news-events" class="relative group">
+						<a href="/#" class="relative group">
 							<span
 								class="text-sm sm:text-base hover:text-gray-800"
-								>News & Events</span
+								>Nyheder & Begivenheder</span
 							>
 							<span
 								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
 							></span>
 						</a>
-						<a href="/about" class="relative group">
+						<a href="/#" class="relative group">
 							<span
 								class="text-sm sm:text-base hover:text-gray-800"
-								>About</span
+								>Om Os</span
 							>
 							<span
 								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
 							></span>
 						</a>
-						<a href="/contact" class="relative group">
+						<a href="/#" class="relative group">
 							<span
 								class="text-sm sm:text-base hover:text-gray-800"
-								>Contact</span
+								>Kontakt</span
 							>
 							<span
 								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
@@ -127,27 +134,102 @@
 						</a>
 					</div>
 				</div>
-				<img
-					src="/background.jpg"
-					alt="Background"
-					class="w-full max-w-7xl mx-auto py-4 sm:py-6 lg:py-10 rounded-br-full rounded-tl-full"
-				/>
+				<figure class="overflow-clip h-96 md:h-auto mt-4 md:mt-auto">
+					<img
+						src="/background.jpg"
+						alt="Baggrund"
+						class="w-full max-w-7xl mx-auto py-4 sm:py-6 lg:py-10 md:rounded-br-full md:rounded-tl-full md:scale-100 scale-200"
+					/>
+				</figure>
 				<div
-					class="bg-neutral-100 h-36 w-96 absolute bottom-2 flex justify-center items-center flex-col rounded-md"
+					class="bg-neutral-100 md:h-36 md:w-96 absolute bottom-2 flex justify-center items-center flex-col rounded-md"
 				>
-					<h1 class="text-3xl font-medium p-2">
-						OUR FAVORITE BRANDS
+					<h1 class="text-2xl font-medium p-2">
+						VORES FORETRUKNE MÆRKER
 					</h1>
 					<button
-						aria-label="shop now"
+						aria-label="køb nu"
 						class="underline underline-offset-8"
 					>
-						SHOP NOW
+						KØB NU
 					</button>
 				</div>
 			</section>
 
-			<div class="md:p-10"></div>
+			<section
+				class="items-center px-4 sm:px-8 md:px-16 lg:px-40 relative"
+			>
+				<div class="w-full border-b-2 border-neutral-200 py-2 sm:py-4"></div>
+				
+				<div class="flex flex-col lg:flex-row justify-between md:max-w-5xl py-10 md:py-20 gap-8 md:gap-12 mx-auto">
+					<div class="max-w-lg space-y-4">
+						<h2 class="text-2xl md:text-3xl font-medium">VORES HISTORIE</h2>
+						<p class="text-sm md:text-base text-balance">Hos Elegance tror vi på, at mode skal styrke og inspirere, samtidig med at det er skånsomt mod planeten. Vores rejse begyndte med idéen om at skabe stilfuldt tøj af høj kvalitet, der ikke går på kompromis med bæredygtighed. Vi er her for at tilbyde et alternativ til fast fashion, der værdsætter både design og miljø.</p>
+						<p class="text-sm md:text-base text-balance">Hvert stykke i vores kollektion er omhyggeligt fremstillet af miljøvenlige materialer som økologisk bomuld og genanvendte stoffer. Vi prioriterer etiske produktionsmetoder og sikrer fair løn og sikre arbejdsforhold for alle involverede. Bæredygtighed styrer alt, hvad vi gør, fra design til levering.</p>
+						<p class="text-sm md:text-base text-balance">Vores mål er enkelt: at hjælpe dig med at opbygge en garderobe, der afspejler dine værdier, samtidig med at du gør en positiv forskel. Vær med til at skabe en mere bæredygtig fremtid, hvor stil og bevidste valg går hånd i hånd.</p>
+						<button class="bg-black py-2 px-6 text-white rounded-md hover:bg-gray-800 transition-colors">
+							LÆS MERE
+						</button>
+					</div>
+					
+					<img 
+						src="https://placehold.co/400x400" 
+						class="w-full md:w-auto object-cover rounded-lg shadow-md" 
+						alt="Vores Historie Billede"
+					>
+				</div>
+			</section>
+
+			<footer
+				class="items-center px-4 sm:px-8 md:px-16 lg:px-40 relative"
+			>
+				<div class="w-full border-b-2 border-neutral-200 py-2 sm:py-4"></div>
+
+				<div class="flex flex-col md:flex-row justify-between py-8 md:py-12 gap-8">
+					<div class="space-y-4">
+						<h3 class="font-medium uppercase">Kundeservice</h3>
+						<ul class="space-y-2 text-sm">
+							<li><a href="#" class="hover:underline">Om os</a></li>
+							<li><a href="#" class="hover:underline">Kontakt</a></li>
+							<li><a href="#" class="hover:underline">Nyheder & Events</a></li>
+							<li><a href="#" class="hover:underline">Returner</a></li>
+						</ul>
+					</div>
+
+					<div class="space-y-4">
+						<h3 class="font-medium uppercase">Besøg vores butik</h3>
+						<address class="text-sm not-italic">
+							<p>Østergade 52</p>
+							<p>København K, 1100</p>
+							<p>(+45) 12 34 56 78</p>
+						</address>
+						<div class="text-sm space-y-1">
+							<p>Mandag-Fredag 9:00-18:00</p>
+							<p>Lørdag 10:00-17:00</p>
+							<p>Søndag 10:00-16:00</p>
+						</div>
+					</div>
+
+					<div class="space-y-4">
+						<h3 class="font-medium uppercase">Find os her</h3>
+						<div class="flex gap-4">
+							<a href="#" aria-label="Instagram" class="hover:opacity-80">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+							</a>
+							<a href="#" aria-label="Facebook" class="hover:opacity-80">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+							</a>
+							<a href="#" aria-label="Twitter" class="hover:opacity-80">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="border-t border-neutral-200 py-8 text-sm text-center">
+					<p>&copy; 2025 Elegance. Alle rettigheder forbeholdes.</p>
+				</div>
+			</footer>
 		</main>
 		<script type="module" src="/src/main.ts"></script>
 	</body>
