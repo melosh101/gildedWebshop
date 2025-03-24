@@ -2,7 +2,7 @@ import { FastifyPluginAsync } from "fastify"
 import db from "../../db";
 import z from "zod";
 import { productTable } from "../../db/schema";
-import { count, sql } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 
 const productList = z.object({
   page: z.coerce.number().min(1).default(1),
