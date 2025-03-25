@@ -1,5 +1,4 @@
 import { FastifyPluginAsync } from 'fastify'
-import db from '../db'
 
 const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.get('/', async function (request, reply) {
