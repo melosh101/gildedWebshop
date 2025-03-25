@@ -1,7 +1,7 @@
 import { FastifyPluginAsync } from "fastify"
 import db from "../../db";
 import z from "zod";
-import { productTable, productVariantTable } from "../../db/schema";
+import { productTable } from "../../db/schema";
 import { eq, sql } from "drizzle-orm";
 
 const productList = z.object({
