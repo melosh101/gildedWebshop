@@ -19,18 +19,19 @@
 					Tidsbegrænset Tilbud: 20% Rabat På Alle Produkter - Køb Nu!
 				</p>
 			</div>
-
 			<header
 				class="grid grid-cols-3 items-center px-4 sm:px-8 md:px-16 lg:px-40 py-4 sm:py-6 lg:py-10"
 			>
-				<div
-					class="flex items-center border-b border-gray-200 focus-within:border-gray-700 transition-colors"
-				>
-					<input
-						type="text"
-						placeholder="SØG"
-						class="bg-transparent focus:outline-none pr-2 w-24 sm:w-auto text-sm"
-					/>
+				<div class="flex items-center">
+					<div
+						class="border-b border-gray-200 focus-within:border-gray-700 transition-colors"
+					>
+						<input
+							type="text"
+							placeholder="SØG"
+							class="bg-transparent focus:outline-none pr-2 w-24 sm:w-auto text-sm"
+						/>
+					</div>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"
@@ -127,8 +128,8 @@
 						</svg>
 						<span
 							class="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
-							>0</span
-						>
+							>0
+						</span>
 					</a>
 				</div>
 			</header>
@@ -195,9 +196,9 @@
 												</li>
 												<li>
 													<a
-														href="/shop?gender=male&category=jackets"
+														href="/shop?gender=male&category=shoes"
 														class="text-sm text-gray-600 hover:text-black"
-														>Jakker</a
+														>Sko</a
 													>
 												</li>
 												<li>
@@ -216,28 +217,28 @@
 											<ul class="space-y-2">
 												<li>
 													<a
-														href="/shop/women/dresses"
+														href="/shop?gender=female&category=dresses"
 														class="text-sm text-gray-600 hover:text-black"
 														>Kjoler</a
 													>
 												</li>
 												<li>
 													<a
-														href="/shop/women/tops"
+														href="/shop?gender=female&category=tops"
 														class="text-sm text-gray-600 hover:text-black"
 														>Toppe</a
 													>
 												</li>
 												<li>
 													<a
-														href="/shop/women/pants"
+														href="/shop?gender=female&category=pants"
 														class="text-sm text-gray-600 hover:text-black"
 														>Bukser</a
 													>
 												</li>
 												<li>
 													<a
-														href="/shop/women/accessories"
+														href="/shop?gender=female&category=accessories"
 														class="text-sm text-gray-600 hover:text-black"
 														>Accessories</a
 													>
@@ -251,28 +252,28 @@
 											<ul class="space-y-2">
 												<li>
 													<a
-														href="/shop/unisex/tshirts"
+														href="/shop?gender=unisex&category=t-shirts"
 														class="text-sm text-gray-600 hover:text-black"
 														>T-shirts</a
 													>
 												</li>
 												<li>
 													<a
-														href="/shop/unisex/sweaters"
+														href="/shop?gender=unisex&category=sweaters"
 														class="text-sm text-gray-600 hover:text-black"
 														>Sweatere</a
 													>
 												</li>
 												<li>
 													<a
-														href="/shop/unisex/jackets"
+														href="/shop?gender=unisex&category=jackets"
 														class="text-sm text-gray-600 hover:text-black"
 														>Jakker</a
 													>
 												</li>
 												<li>
 													<a
-														href="/shop/unisex/accessories"
+														href="/shop?gender=unisex&category=accessories"
 														class="text-sm text-gray-600 hover:text-black"
 														>Accessories</a
 													>
@@ -317,7 +318,7 @@
 			<div id="product-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			</div>
 		</main>
-		<script type="module" src="/src/product.ts"></script>
-		<script type="module" src="/src/main.ts"></script>
+		<script type="module" src="../src/main.ts"></script>
+		<script type="module" src="../src/product.ts"></script>
 	</body>
 </html>
