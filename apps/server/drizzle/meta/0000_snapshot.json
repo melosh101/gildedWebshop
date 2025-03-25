@@ -1,5 +1,5 @@
 {
-  "id": "70cbbee4-7562-45eb-8e98-b431fc355af4",
+  "id": "14b692af-1216-4125-be52-e8c8ef7ed34e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -30,8 +30,7 @@
           "type": "categories",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false,
-          "default": "'Shirt'"
+          "notNull": true
         },
         "name": {
           "name": "name",
@@ -50,6 +49,14 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "gender": {
+          "name": "gender",
+          "type": "gender",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Unisex'"
         },
         "image": {
           "name": "image",
@@ -93,14 +100,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "gender": {
-          "name": "gender",
-          "type": "gender",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'Unisex'"
-        },
         "price": {
           "name": "price",
           "type": "text",
@@ -125,7 +124,44 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.categories": {
+      "name": "categories",
+      "schema": "public",
+      "values": [
+        "Skjorter",
+        "Jakker",
+        "T-shirts",
+        "Accessories",
+        "Kjoler",
+        "Toppe",
+        "Bukser",
+        "Sweatere",
+        "Jakker"
+      ]
+    },
+    "public.gender": {
+      "name": "gender",
+      "schema": "public",
+      "values": [
+        "Male",
+        "Female",
+        "Unisex"
+      ]
+    },
+    "public.size": {
+      "name": "size",
+      "schema": "public",
+      "values": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},

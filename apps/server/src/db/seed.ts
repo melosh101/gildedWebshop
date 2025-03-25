@@ -1,50 +1,83 @@
 import db from ".";
 import { productTable, productVariantTable } from "./schema";
 
+function generateClothingProducts(totalProducts: number): any[] {
+    const genders = ['Female', 'Male', 'Unisex'];
+    const femaleCategories = ['Kjoler', 'Toppe', 'Bukser', "Accessories"];
+    const maleCategories = ['Skjorter', 'Jakker', 'Bukser', "Accessories"];
+    const unisexCategories = ['T-shirts', 'Sweatere', 'Jakker',"Accessories"];
+    const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
-const sizes = ["XS", "S", "M", "L", "XL", "XXL"] as const;
-const gender = ["Male", "Female", "Unisex"] as const;
-const categories = ["Shirt", "Pants", "Shoes", "Accessories"] as const;
+    const products = [];
 
-// type to convert gender array to a union type
-type Tgender = typeof gender[number];
-type Tcategory = typeof categories[number];
-
-// a function to take a random element from the gender array
-function takeRandomGender<T extends any[]>(arr: T): Tgender {
-  return arr[Math.floor(Math.random() * arr.length)];
-}   
-function takeRandomCategory<T extends any[]>(arr: T): Tcategory {
-  return arr[Math.floor(Math.random() * arr.length)];
-}   
-
-// a function to seed the db with 1.000 clothing products each with 5 variants
-async function seed() {
-  await db.transaction(async (trx) => {
-    for (let i = 0; i < 1000; i++) {
-      const [product] = await db.insert(productTable).values({
-        name: `product ${i}`,
-        price: "100",
-        description: `product ${i} description`,
-        image: `https://placehold.co/150?text=product+${i}&font=raleway`,
-        gender: takeRandomGender(["Male", "Female", "Unisex"]),
-        category: takeRandomCategory(["Shirt", "Pants", "Shoes", "Accessories"]),
-      }).returning();
-      for (let j = 0; j < 5; j++) {
-        await db.insert(productVariantTable).values({
-          productId: product.id,
-          price: "100",
-          size: sizes[j],
-          
+    for (let i = 0; i < totalProducts; i++) {
+      const gender = genders[Math.floor(Math.random() * genders.length)];
+      let category: string;
+  
+      if (gender === 'female') {
+        category = femaleCategories[Math.floor(Math.random() * femaleCategories.length)];
+      } else if (gender === 'male') {
+        category = maleCategories[Math.floor(Math.random() * maleCategories.length)];
+      } else {
+        category = unisexCategories[Math.floor(Math.random() * unisexCategories.length)];
+      }
+  
+      const productName = `${gender} ${category} ${i + 1}`;
+      const numVariants = Math.floor(Math.random() * 3) + 3; // 3 to 5 variants
+      const productPrice = Math.floor(Math.random() * 1000) + 50; // Random price between 50 and 1050
+      const productDescription = `A stylish ${productName} for ${gender}s.`;
+      const imageUrl = `https://placehold.co/150?text=${encodeURIComponent(productName)}&font=raleway`;
+      const variants = [];
+      for (let j = 0; j < numVariants; j++) {
+        const price = Math.floor(Math.random() * 1000) + 50; // Random price between 50 and 1050
+        const size = sizes[Math.floor(Math.random() * sizes.length)];
+  
+        variants.push({
+          price,
+          size,
         });
       }
-
-      if(i % 100 === 0) {
-        console.log(`inserted ${i} products
-        `);
-      }
+  
+  
+      products.push({
+        name: productName,
+        gender,
+        category,
+        variants,
+        imageUrl,
+        price: productPrice,
+        description: productDescription,
+      });
     }
-  });
-}
+  
+    return products;
+  }
 
-seed().then(() => console.log("seeded!"));
+const clothingProducts = generateClothingProducts(2000);
+
+clothingProducts.forEach(async (product, i) => {
+
+    const [prod] = await db.insert(productTable).values({
+        name: product.name,
+        category: product.category,
+        price: product.price,
+        description: product.description,
+        image: product.imageUrl,
+        gender: product.gender
+    }).returning();
+    
+    const variants = product.variants.map((variant: any) => {
+        return {
+            productId: prod.id,
+            price: variant.price,
+            size: variant.size
+        }
+    });
+
+    await db.insert(productVariantTable).values(variants);
+
+    if(i % 100) {
+        console.log(`inserted ${i} products`);
+    }
+});
+console.log("products inserted");

@@ -4,11 +4,11 @@ import { text, integer, pgTable } from "drizzle-orm/pg-core";
 
 export const sizeEnum = pgEnum("size", ["XS", "S", "M", "L", "XL", "XXL"])
 export const genderEnum = pgEnum("gender", ["Male", "Female", "Unisex"])
-export const categoryEnum = pgEnum("categories", ["Shirt", "Pants", "Shoes", "Accessories"])
 
+export const categoryEnum = pgEnum("categories", ["Skjorter", "Jakker", "T-shirts", "Accessories","Kjoler" ,"Toppe" ,"Bukser" ,"Sweatere"])
 export const productTable = pgTable("product", {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    category: categoryEnum().default("Shirt"),
+    category: categoryEnum().notNull(),
     name: text().notNull(),
     price: text().notNull(),
     description: text().notNull(),
@@ -25,6 +25,9 @@ export const productVariantTable = pgTable("product_variant", {
 
 export type TProductVariant = typeof productVariantTable.$inferSelect
 export type TProduct = typeof productTable.$inferSelect
+
+export type TIProduct = typeof productTable.$inferInsert
+export type TIProductVariant = typeof productVariantTable.$inferInsert
 
 export const productRelation = relations(productTable, ({many}) => ({
     productVariant: many(productVariantTable)
