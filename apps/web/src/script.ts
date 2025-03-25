@@ -96,7 +96,7 @@ function renderPagination() {
     paginationContainer.className = 'flex justify-center items-center gap-4 py-8';
     
     const prevButton = document.createElement('button');
-    prevButton.textContent = 'Previous';
+    prevButton.textContent = 'Forrige';
     prevButton.className = `px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`;
     prevButton.disabled = currentPage === 1;
     prevButton.addEventListener('click', () => {
@@ -110,11 +110,11 @@ function renderPagination() {
     });
     
     const pageIndicator = document.createElement('span');
-    pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+    pageIndicator.textContent = `Side ${currentPage} af ${totalPages}`;
     pageIndicator.className = 'text-lg font-medium';
     
     const nextButton = document.createElement('button');
-    nextButton.textContent = 'Next';
+    nextButton.textContent = 'Næste';
     nextButton.className = `px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`;
     nextButton.disabled = currentPage === totalPages;
     nextButton.addEventListener('click', () => {
