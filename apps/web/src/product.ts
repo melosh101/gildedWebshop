@@ -17,7 +17,8 @@ interface Product {
 async function fetchProduct(id: string): Promise<Product> {
 
     // TODO: MILAS! LAV SÅ JEG KAN FÅ DATA UDFRA ET ID
-    const response = await fetch(`https://gildedwebshop.milasholsting.dk/api/products/${id}`, {
+    // BRUH: forket url
+    const response = await fetch(`https://gildedwebshop.milasholsting.dk/api/products?id=${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
