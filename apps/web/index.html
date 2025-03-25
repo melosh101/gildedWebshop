@@ -137,8 +137,198 @@
 
 			<nav class="border-y border-neutral-200 py-3 mb-8">
 				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<!-- Mobile menu button (hidden on larger screens) -->
 					<div
-						class="flex flex-wrap gap-6 sm:gap-8 md:gap-12 justify-center"
+						class="flex items-center justify-between md:hidden py-2"
+					>
+						<a href="/" class="font-medium">Brand</a>
+						<button
+							id="mobile-menu-button"
+							class="text-gray-600 focus:outline-none"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<line x1="3" y1="12" x2="21" y2="12"></line>
+								<line x1="3" y1="6" x2="21" y2="6"></line>
+								<line x1="3" y1="18" x2="21" y2="18"></line>
+							</svg>
+						</button>
+					</div>
+
+					<!-- Mobile menu (hidden by default) -->
+					<div id="mobile-menu" class="hidden md:hidden mt-2">
+						<div class="flex flex-col space-y-3">
+							<a
+								href="/"
+								class="py-2 text-gray-800 hover:text-black"
+								>Hjem</a
+							>
+
+							<!-- Mobile dropdown -->
+							<div class="relative">
+								<button
+									id="mobile-dropdown-button"
+									class="flex items-center justify-between w-full py-2 text-gray-800 hover:text-black"
+								>
+									Butik
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<path d="m6 9 6 6 6-6"></path>
+									</svg>
+								</button>
+								<div
+									id="mobile-dropdown-content"
+									class="hidden mt-2 bg-white border border-gray-200 rounded-md shadow-lg"
+								>
+									<div class="p-4">
+										<div class="mb-4">
+											<h3 class="font-medium mb-2">
+												Mænd
+											</h3>
+											<ul class="space-y-2">
+												<li>
+													<a
+														href="/shop?gender=male&category=shirt"
+														class="text-sm text-gray-600 hover:text-black"
+														>Skjorter</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=male&category=pants"
+														class="text-sm text-gray-600 hover:text-black"
+														>Bukser</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=male&category=shoes"
+														class="text-sm text-gray-600 hover:text-black"
+														>Sko</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=male&category=accessories"
+														class="text-sm text-gray-600 hover:text-black"
+														>Accessories</a
+													>
+												</li>
+											</ul>
+										</div>
+										<div class="mb-4">
+											<h3 class="font-medium mb-2">
+												Kvinder
+											</h3>
+											<ul class="space-y-2">
+												<li>
+													<a
+														href="/shop?gender=female&category=dresses"
+														class="text-sm text-gray-600 hover:text-black"
+														>Kjoler</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=female&category=tops"
+														class="text-sm text-gray-600 hover:text-black"
+														>Toppe</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=female&category=pants"
+														class="text-sm text-gray-600 hover:text-black"
+														>Bukser</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=female&category=accessories"
+														class="text-sm text-gray-600 hover:text-black"
+														>Accessories</a
+													>
+												</li>
+											</ul>
+										</div>
+										<div>
+											<h3 class="font-medium mb-2">
+												Unisex
+											</h3>
+											<ul class="space-y-2">
+												<li>
+													<a
+														href="/shop?gender=unisex&category=t-shirts"
+														class="text-sm text-gray-600 hover:text-black"
+														>T-shirts</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=unisex&category=sweaters"
+														class="text-sm text-gray-600 hover:text-black"
+														>Sweatere</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=unisex&category=jackets"
+														class="text-sm text-gray-600 hover:text-black"
+														>Jakker</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=unisex&category=accessories"
+														class="text-sm text-gray-600 hover:text-black"
+														>Accessories</a
+													>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<a
+								href="/nyheder"
+								class="py-2 text-gray-800 hover:text-black"
+								>Nyheder</a
+							>
+							<a
+								href="/om-os"
+								class="py-2 text-gray-800 hover:text-black"
+								>Om Os</a
+							>
+							<a
+								href="/kontakt"
+								class="py-2 text-gray-800 hover:text-black"
+								>Kontakt</a
+							>
+						</div>
+					</div>
+
+					<!-- Desktop menu -->
+					<div
+						class="hidden md:flex flex-wrap gap-6 sm:gap-8 md:gap-12 justify-center"
 					>
 						<a href="/" class="relative group">
 							<span
@@ -149,9 +339,13 @@
 								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
 							></span>
 						</a>
+
+						<!-- Desktop dropdown -->
 						<div class="relative group">
 							<button
+								data-dropdown-toggle
 								class="flex items-center text-sm sm:text-base text-gray-800 font-medium"
+								aria-expanded="false"
 							>
 								Butik
 								<svg
@@ -166,16 +360,20 @@
 									stroke-linejoin="round"
 									class="ml-1"
 								>
-									<path d="m6 9 6 6 6-6" />
+									<path d="m6 9 6 6 6-6"></path>
 								</svg>
 							</button>
+
 							<div
-								class="absolute hidden group-hover:block w-[800px] left-1/2 -translate-x-1/2 top-full pt-2 z-50"
+								data-dropdown-content
+								class="absolute hidden top-full pt-2 z-50 left-1/2 transform -translate-x-1/2"
 							>
 								<div
-									class="bg-white shadow-lg rounded-md border border-gray-200 p-4"
+									class="bg-white shadow-lg rounded-md border border-gray-200 p-4 w-max max-w-[90vw] sm:max-w-[600px] md:max-w-[800px]"
 								>
-									<div class="grid grid-cols-3 gap-8">
+									<div
+										class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+									>
 										<div>
 											<h3 class="font-medium mb-2">
 												Mænd
@@ -285,6 +483,7 @@
 								</div>
 							</div>
 						</div>
+
 						<a href="/nyheder" class="relative group">
 							<span
 								class="text-sm sm:text-base hover:text-gray-800 transition-colors"
