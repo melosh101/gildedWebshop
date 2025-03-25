@@ -60,7 +60,8 @@ async function retrieveProducts() {
         const gender = searchParams.get('gender')?.toLowerCase();
         const category = searchParams.get('category')?.toLowerCase();
         
-        // Ensure we're on the correct URL format
+        console.log('Fetching products with params:', { gender, category });
+        
         if (window.location.pathname !== '/shop') {
             const newUrl = new URL('/shop', window.location.origin);
             if (gender) newUrl.searchParams.set('gender', gender);
@@ -77,6 +78,8 @@ async function retrieveProducts() {
             firstPageUrl += `&category=${category}`;
         }
 
+        console.log('Fetching first page:', firstPageUrl);
+
         const firstPageData = await fetch(firstPageUrl, {
             method: 'GET',
             headers: {
@@ -90,7 +93,10 @@ async function retrieveProducts() {
         }
 
         const firstPageResponse = await firstPageData.json();
+        console.log('First page response:', firstPageResponse);
+        
         const maxPages = firstPageResponse.maxPages;
+        console.log('Max pages:', maxPages);
 
         // Fetch all pages
         const allPagesPromises = [];
@@ -120,6 +126,8 @@ async function retrieveProducts() {
             combinedProducts = [...combinedProducts, ...response.data];
         }
 
+        console.log('Total products fetched:', combinedProducts.length);
+
         let filteredProducts = combinedProducts;
         if (gender) {
             filteredProducts = filteredProducts.filter((product: Product) => 
@@ -132,10 +140,11 @@ async function retrieveProducts() {
             );
         }
 
+        console.log('Filtered products:', filteredProducts.length);
+
         allProducts = filteredProducts;
         totalProducts = filteredProducts.length;
 
-        // Update URL with page parameter if not present
         const currentParams = new URLSearchParams(window.location.search);
         if (!currentParams.has('page')) {
             currentParams.set('page', '1');
@@ -144,6 +153,8 @@ async function retrieveProducts() {
         }
 
         const paginatedProducts = paginateProducts(filteredProducts, currentPage, productsPerPage);
+        console.log('Products to display:', paginatedProducts.length);
+        
         displayProducts(paginatedProducts);
         renderPagination();
         
@@ -163,6 +174,7 @@ function displayProducts(products: Product[]) {
 
     products.forEach(product => {
         const productLink = document.createElement('a');
+        productLink.href = `/product/index.html?id=${product.id}`;
         productLink.className = 'group relative cursor-pointer';
         
         const imageContainer = document.createElement('div');
@@ -259,7 +271,6 @@ function renderPagination() {
     }
 }
 
-// Add event listener for browser back/forward buttons
 window.addEventListener('popstate', () => {
     currentPage = Number(new URLSearchParams(window.location.search).get('page')) || 1;
     if (allProducts.length > 0) {
@@ -271,12 +282,17 @@ window.addEventListener('popstate', () => {
     }
 });
 
-if (window.location.pathname.includes('/shop')) {
+if (window.location.pathname === '/shop') {
     let productsContainer = document.getElementById('products-container');
     if (!productsContainer) {
         productsContainer = document.createElement('div');
         productsContainer.id = 'products-container';
-        document.querySelector('main')?.appendChild(productsContainer);
+        const mainElement = document.querySelector('main');
+        if (!mainElement) {
+            console.error('Main element not found');
+        } else {
+            mainElement.appendChild(productsContainer);
+        }
     }
     retrieveProducts();
 }

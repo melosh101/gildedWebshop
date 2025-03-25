@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="da">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/logo.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+			rel="stylesheet"
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Elegance | Produkt</title>
+	</head>
+	<body>
+		<main class="min-h-screen bg-white text-black">
+			<div class="bg-green-500 text-white py-2 sm:py-3 text-center">
+				<p class="text-sm md:text-lg font-medium uppercase">
+					Tidsbegrænset Tilbud: 20% Rabat På Alle Produkter - Køb Nu!
+				</p>
+			</div>
+
+			<header
+				class="grid grid-cols-3 items-center px-4 sm:px-8 md:px-16 lg:px-40 py-4 sm:py-6 lg:py-10"
+			>
+				<div
+					class="flex items-center border-b border-gray-200 focus-within:border-gray-700 transition-colors"
+				>
+					<input
+						type="text"
+						placeholder="SØG"
+						class="bg-transparent focus:outline-none pr-2 w-24 sm:w-auto text-sm"
+					/>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="text-gray-700 sm:w-5 sm:h-5"
+					>
+						<circle cx="11" cy="11" r="8" />
+						<path d="m21 21-4.3-4.3" />
+					</svg>
+				</div>
+
+				<h2
+					class="text-3xl sm:text-4xl lg:text-5xl font-medium text-center tracking-wider"
+				>
+					<a href="/" class="hover:opacity-80 transition-opacity"
+						>ELEGANCE</a
+					>
+				</h2>
+
+				<div class="flex items-center justify-end gap-4">
+					<a
+						href="/account"
+						aria-label="Min konto"
+						class="px-2 py-1 text-sm inline-block transition-colors hover:text-gray-600"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="text-gray-700 sm:w-6 sm:h-6"
+						>
+							<path
+								d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+							></path>
+							<circle cx="12" cy="7" r="4"></circle>
+						</svg>
+					</a>
+					<a
+						href="/favorites"
+						aria-label="Favoritter"
+						class="px-2 py-1 text-sm inline-block transition-colors hover:text-gray-600"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="text-gray-700 sm:w-6 sm:h-6"
+						>
+							<path
+								d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+							></path>
+						</svg>
+					</a>
+					<a
+						href="/cart"
+						aria-label="Kurv"
+						class="px-2 py-1 text-sm inline-block transition-colors hover:text-gray-600 relative"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="text-gray-700 sm:w-6 sm:h-6"
+						>
+							<circle cx="8" cy="21" r="1" />
+							<circle cx="19" cy="21" r="1" />
+							<path
+								d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+							/>
+						</svg>
+						<span
+							class="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
+							>0</span
+						>
+					</a>
+				</div>
+			</header>
+
+			<nav class="border-y border-neutral-200 py-3 mb-8">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div
+						class="flex flex-wrap gap-6 sm:gap-8 md:gap-12 justify-center"
+					>
+						<a href="/" class="relative group">
+							<span
+								class="text-sm sm:text-base hover:text-gray-800 transition-colors"
+								>Hjem</span
+							>
+							<span
+								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
+							></span>
+						</a>
+						<div class="relative group">
+							<button
+								class="flex items-center text-sm sm:text-base text-gray-800 font-medium"
+							>
+								Butik
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="ml-1"
+								>
+									<path d="m6 9 6 6 6-6" />
+								</svg>
+							</button>
+							<div
+								class="absolute hidden group-hover:block w-[800px] left-1/2 -translate-x-1/2 top-full pt-2 z-50"
+							>
+								<div
+									class="bg-white shadow-lg rounded-md border border-gray-200 p-4"
+								>
+									<div class="grid grid-cols-3 gap-8">
+										<div>
+											<h3 class="font-medium mb-2">
+												Mænd
+											</h3>
+											<ul class="space-y-2">
+												<li>
+													<a
+														href="/shop?gender=male&category=shirt"
+														class="text-sm text-gray-600 hover:text-black"
+														>Skjorter</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=male&category=pants"
+														class="text-sm text-gray-600 hover:text-black"
+														>Bukser</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=male&category=jackets"
+														class="text-sm text-gray-600 hover:text-black"
+														>Jakker</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop?gender=male&category=accessories"
+														class="text-sm text-gray-600 hover:text-black"
+														>Accessories</a
+													>
+												</li>
+											</ul>
+										</div>
+										<div>
+											<h3 class="font-medium mb-2">
+												Kvinder
+											</h3>
+											<ul class="space-y-2">
+												<li>
+													<a
+														href="/shop/women/dresses"
+														class="text-sm text-gray-600 hover:text-black"
+														>Kjoler</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop/women/tops"
+														class="text-sm text-gray-600 hover:text-black"
+														>Toppe</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop/women/pants"
+														class="text-sm text-gray-600 hover:text-black"
+														>Bukser</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop/women/accessories"
+														class="text-sm text-gray-600 hover:text-black"
+														>Accessories</a
+													>
+												</li>
+											</ul>
+										</div>
+										<div>
+											<h3 class="font-medium mb-2">
+												Unisex
+											</h3>
+											<ul class="space-y-2">
+												<li>
+													<a
+														href="/shop/unisex/tshirts"
+														class="text-sm text-gray-600 hover:text-black"
+														>T-shirts</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop/unisex/sweaters"
+														class="text-sm text-gray-600 hover:text-black"
+														>Sweatere</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop/unisex/jackets"
+														class="text-sm text-gray-600 hover:text-black"
+														>Jakker</a
+													>
+												</li>
+												<li>
+													<a
+														href="/shop/unisex/accessories"
+														class="text-sm text-gray-600 hover:text-black"
+														>Accessories</a
+													>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<a href="/nyheder" class="relative group">
+							<span
+								class="text-sm sm:text-base hover:text-gray-800 transition-colors"
+								>Nyheder</span
+							>
+							<span
+								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
+							></span>
+						</a>
+						<a href="/om-os" class="relative group">
+							<span
+								class="text-sm sm:text-base hover:text-gray-800 transition-colors"
+								>Om Os</span
+							>
+							<span
+								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
+							></span>
+						</a>
+						<a href="/kontakt" class="relative group">
+							<span
+								class="text-sm sm:text-base hover:text-gray-800 transition-colors"
+								>Kontakt</span
+							>
+							<span
+								class="absolute bottom-0 left-0 w-0 h-0.5 bg-black group-hover:w-full transition-all duration-300"
+							></span>
+						</a>
+					</div>
+				</div>
+			</nav>
+
+			<div id="product-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			</div>
+		</main>
+		<script type="module" src="/src/product.ts"></script>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
+</html>
