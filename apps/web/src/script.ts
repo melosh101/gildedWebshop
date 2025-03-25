@@ -4,16 +4,80 @@ interface Product {
     image: string;
     name: string;
     price: number;
+    gender: string;
+    category: string;
+    id: number;
+    description: string;
+    productVariant: Array<{
+        id: number;
+        productId: number;
+        price: string;
+        size: string;
+    }>;
 }
 
 let currentPage = Number(new URLSearchParams(window.location.search).get('page')) || 1;
 const productsPerPage = 20;
-let allProducts: Product[] = []; 
+let allProducts: Product[] = [];
 let totalProducts = 0;
+
+function paginateProducts(products: Product[], page: number, perPage: number) {
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    return products.slice(start, end);
+}
+
+function createLoadingSpinner() {
+    const spinner = document.createElement('div');
+    spinner.id = 'loading-spinner';
+    spinner.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-80 z-50';
+    
+    const spinnerInner = document.createElement('div');
+    spinnerInner.className = 'animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-black';
+    
+    spinner.appendChild(spinnerInner);
+    return spinner;
+}
+
+function showLoading() {
+    const existingSpinner = document.getElementById('loading-spinner');
+    if (!existingSpinner) {
+        document.body.appendChild(createLoadingSpinner());
+    }
+}
+
+function hideLoading() {
+    const spinner = document.getElementById('loading-spinner');
+    if (spinner) {
+        spinner.remove();
+    }
+}
 
 async function retrieveProducts() {
     try {
-        const data = await fetch(`https://gildedwebshop.milasholsting.dk/api/products/list?page=${currentPage}`, {
+        showLoading();
+        const searchParams = new URLSearchParams(window.location.search);
+        const gender = searchParams.get('gender')?.toLowerCase();
+        const category = searchParams.get('category')?.toLowerCase();
+        
+        // Ensure we're on the correct URL format
+        if (window.location.pathname !== '/shop') {
+            const newUrl = new URL('/shop', window.location.origin);
+            if (gender) newUrl.searchParams.set('gender', gender);
+            if (category) newUrl.searchParams.set('category', category);
+            if (currentPage > 1) newUrl.searchParams.set('page', currentPage.toString());
+            window.history.pushState({}, '', newUrl.toString());
+        }
+
+        let firstPageUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?page=1`;
+        if (gender) {
+            firstPageUrl += `&gender=${gender}`;
+        }
+        if (category) {
+            firstPageUrl += `&category=${category}`;
+        }
+
+        const firstPageData = await fetch(firstPageUrl, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,24 +85,76 @@ async function retrieveProducts() {
             mode: 'cors',
         });
 
-        if (!data.ok) {
+        if (!firstPageData.ok) {
             throw new Error('Failed to fetch products');
         }
 
-        const response = await data.json();
-        allProducts = response.data;
-        totalProducts = response.total || allProducts.length;
-        
-        displayProducts(currentPage);
+        const firstPageResponse = await firstPageData.json();
+        const maxPages = firstPageResponse.maxPages;
+
+        // Fetch all pages
+        const allPagesPromises = [];
+        for (let page = 1; page <= maxPages; page++) {
+            let apiUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?page=${page}`;
+            if (gender) {
+                apiUrl += `&gender=${gender}`;
+            }
+            if (category) {
+                apiUrl += `&category=${category}`;
+            }
+
+            allPagesPromises.push(
+                fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    mode: 'cors',
+                }).then(res => res.json())
+            );
+        }
+
+        const allPagesResponses = await Promise.all(allPagesPromises);
+        let combinedProducts: Product[] = [];
+        for (const response of allPagesResponses) {
+            combinedProducts = [...combinedProducts, ...response.data];
+        }
+
+        let filteredProducts = combinedProducts;
+        if (gender) {
+            filteredProducts = filteredProducts.filter((product: Product) => 
+                product.gender.toLowerCase() === gender
+            );
+        }
+        if (category) {
+            filteredProducts = filteredProducts.filter((product: Product) => 
+                product.category.toLowerCase() === category
+            );
+        }
+
+        allProducts = filteredProducts;
+        totalProducts = filteredProducts.length;
+
+        // Update URL with page parameter if not present
+        const currentParams = new URLSearchParams(window.location.search);
+        if (!currentParams.has('page')) {
+            currentParams.set('page', '1');
+            const newUrl = `${window.location.pathname}?${currentParams.toString()}`;
+            window.history.pushState({}, '', newUrl);
+        }
+
+        const paginatedProducts = paginateProducts(filteredProducts, currentPage, productsPerPage);
+        displayProducts(paginatedProducts);
         renderPagination();
+        
+        hideLoading();
     } catch (error) {
+        hideLoading();
         console.error('Error fetching products:', error);
     }
 }
 
-function displayProducts(page: number) {
-    const products = allProducts;
-    
+function displayProducts(products: Product[]) {
     const productContainer = document.createElement('div');
     productContainer.className = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
 
@@ -57,8 +173,6 @@ function displayProducts(page: number) {
         image.alt = product.name;
         image.className = 'h-full w-full object-cover';
         
-        imageContainer.appendChild(image);
-
         const infoContainer = document.createElement('div');
         infoContainer.className = 'mt-2';
 
@@ -72,20 +186,16 @@ function displayProducts(page: number) {
 
         infoContainer.appendChild(name);
         infoContainer.appendChild(price);
-
-        productLink.appendChild(imageContainer);
-        productLink.appendChild(infoContainer);
-        
+        imageContainer.appendChild(image);
+        productLink.append(imageContainer, infoContainer);
         gridContainer.appendChild(productLink);
     });
 
-    productContainer.appendChild(gridContainer);
-
     const container = document.getElementById('products-container');
-    if (!container) {
-        throw new Error('Products container element not found');
-    }
+    if (!container) throw new Error('Products container element not found');
+    
     container.innerHTML = '';
+    productContainer.appendChild(gridContainer);
     container.appendChild(productContainer);
 }
 
@@ -105,7 +215,10 @@ function renderPagination() {
             const searchParams = new URLSearchParams(window.location.search);
             searchParams.set('page', currentPage.toString());
             window.history.pushState({}, '', `${window.location.pathname}?${searchParams}`);
-            retrieveProducts();
+
+            const paginatedProducts = paginateProducts(allProducts, currentPage, productsPerPage);
+            displayProducts(paginatedProducts);
+            renderPagination();
         }
     });
     
@@ -123,7 +236,10 @@ function renderPagination() {
             const searchParams = new URLSearchParams(window.location.search);
             searchParams.set('page', currentPage.toString());
             window.history.pushState({}, '', `${window.location.pathname}?${searchParams}`);
-            retrieveProducts();
+
+            const paginatedProducts = paginateProducts(allProducts, currentPage, productsPerPage);
+            displayProducts(paginatedProducts);
+            renderPagination();
         }
     });
     
@@ -143,4 +259,24 @@ function renderPagination() {
     }
 }
 
-retrieveProducts();
+// Add event listener for browser back/forward buttons
+window.addEventListener('popstate', () => {
+    currentPage = Number(new URLSearchParams(window.location.search).get('page')) || 1;
+    if (allProducts.length > 0) {
+        const paginatedProducts = paginateProducts(allProducts, currentPage, productsPerPage);
+        displayProducts(paginatedProducts);
+        renderPagination();
+    } else {
+        retrieveProducts();
+    }
+});
+
+if (window.location.pathname.includes('/shop')) {
+    let productsContainer = document.getElementById('products-container');
+    if (!productsContainer) {
+        productsContainer = document.createElement('div');
+        productsContainer.id = 'products-container';
+        document.querySelector('main')?.appendChild(productsContainer);
+    }
+    retrieveProducts();
+}
