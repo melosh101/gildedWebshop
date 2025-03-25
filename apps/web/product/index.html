@@ -23,31 +23,32 @@
 				class="grid grid-cols-3 items-center px-4 sm:px-8 md:px-16 lg:px-40 py-4 sm:py-6 lg:py-10"
 			>
 				<div class="flex items-center">
-					<div
-						class="border-b border-gray-200 focus-within:border-gray-700 transition-colors"
-					>
-						<input
-							type="text"
-							placeholder="SØG"
-							class="bg-transparent focus:outline-none pr-2 w-24 sm:w-auto text-sm"
-						/>
+					<div class="flex items-center">
+						<div
+							class="border-b border-gray-200 focus-within:border-gray-700 transition-colors w-16 sm:w-auto"
+						>
+							<input
+								type="text"
+								placeholder="SØG"
+								class="bg-transparent focus:outline-none pr-1 text-sm w-full"
+							/>
+						</div>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="text-gray-700 sm:w-5 sm:h-5 -ml-1"
+						>
+							<circle cx="11" cy="11" r="8" />
+							<path d="m21 21-4.3-4.3" />
+						</svg>
 					</div>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="16"
-						height="16"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						class="text-gray-700 sm:w-5 sm:h-5"
-					>
-						<circle cx="11" cy="11" r="8" />
-						<path d="m21 21-4.3-4.3" />
-					</svg>
-				</div>
 
 				<h2
 					class="text-3xl sm:text-4xl lg:text-5xl font-medium text-center tracking-wider"
@@ -58,51 +59,6 @@
 				</h2>
 
 				<div class="flex items-center justify-end gap-4">
-					<a
-						href="/account"
-						aria-label="Min konto"
-						class="px-2 py-1 text-sm inline-block transition-colors hover:text-gray-600"
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="text-gray-700 sm:w-6 sm:h-6"
-						>
-							<path
-								d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-							></path>
-							<circle cx="12" cy="7" r="4"></circle>
-						</svg>
-					</a>
-					<a
-						href="/favorites"
-						aria-label="Favoritter"
-						class="px-2 py-1 text-sm inline-block transition-colors hover:text-gray-600"
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="text-gray-700 sm:w-6 sm:h-6"
-						>
-							<path
-								d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-							></path>
-						</svg>
-					</a>
 					<a
 						href="/cart"
 						aria-label="Kurv"
