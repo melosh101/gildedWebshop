@@ -1,5 +1,5 @@
 {
-  "name": "gildedWebshop",
+  "name": "gildedwebshop",
   "private": true,
   "scripts": {
     "build": "turbo run build",

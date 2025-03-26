@@ -1,18 +1,5 @@
-interface Product {
-    image: string;
-    name: string;
-    price: number;
-    gender: string;
-    category: string;
-    id: number;
-    description: string;
-    productVariant: Array<{
-        id: number;
-        productId: number;
-        price: string;
-        size: string;
-    }>;
-}
+import type { TProductWithVariants as Product } from "@gildedwebshop/server"
+
 
 async function fetchProduct(id: string): Promise<Product> {
 

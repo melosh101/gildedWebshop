@@ -1,20 +1,5 @@
 'use strict';
-
-interface Product {
-    image: string;
-    name: string;
-    price: number;
-    gender: string;
-    category: string;
-    id: number;
-    description: string;
-    productVariant: Array<{
-        id: number;
-        productId: number;
-        price: string;
-        size: string;
-    }>;
-}
+import type { TProduct as Product } from "@gildedwebshop/server"
 
 let currentPage = Number(new URLSearchParams(window.location.search).get('page')) || 1;
 const productsPerPage = 20;

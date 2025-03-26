@@ -12,7 +12,7 @@ export const productTable = pgTable("product", {
     name: text().notNull(),
     price: text().notNull(),
     description: text().notNull(),
-    gender: genderEnum().default("Unisex"),
+    gender: genderEnum().default("Unisex").notNull(),
     image: text().notNull(),
 })
 
