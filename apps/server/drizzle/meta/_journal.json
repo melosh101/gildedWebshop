@@ -8,6 +8,13 @@
       "when": 1742916387599,
       "tag": "0000_elite_veda",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1742975355036,
+      "tag": "0001_opposite_ma_gnuci",
+      "breakpoints": true
     }
   ]
 }

@@ -1,4 +1,5 @@
 import { relations } from "drizzle-orm";
+import { index } from "drizzle-orm/pg-core";
 import { pgEnum } from "drizzle-orm/pg-core";
 import { text, integer, pgTable } from "drizzle-orm/pg-core";
 
@@ -14,11 +15,15 @@ export const productTable = pgTable("product", {
     description: text().notNull(),
     gender: genderEnum().default("Unisex").notNull(),
     image: text().notNull(),
-})
+}, (t) => [
+    index("gender_idx").on(t.gender),
+    index("category_idx").on(t.category),
+    index("name_idx").on(t.name),
+])
 
 export const productVariantTable = pgTable("product_variant", {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    productId: integer().notNull(),
+    productId: integer().notNull().references(() => productTable.id),
     price: text().notNull(),
     size: sizeEnum().default("M"),
 })
