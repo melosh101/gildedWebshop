@@ -3,8 +3,6 @@ import type { TProductWithVariants as Product } from "@gildedwebshop/server"
 
 async function fetchProduct(id: string): Promise<Product> {
 
-    // TODO: MILAS! LAV SÅ JEG KAN FÅ DATA UDFRA ET ID
-    // BRUH: forket url
     const response = await fetch(`https://gildedwebshop.milasholsting.dk/api/products?id=${id}`, {
         method: 'GET',
         headers: {
@@ -102,6 +100,9 @@ function displayProduct(product: Product) {
     const addToCartButton = document.createElement('button');
     addToCartButton.className = 'bg-black text-white py-3 px-6 rounded-md hover:bg-gray-800 transition-colors';
     addToCartButton.textContent = 'Tilføj til kurv';
+    addToCartButton.addEventListener('click', () => {
+        addToCart(product);
+    })
 
     infoSection.appendChild(nameHeading);
     infoSection.appendChild(priceText);
@@ -166,3 +167,17 @@ async function initializeProductPage() {
 if (window.location.pathname.includes('/product/index.html')) {
     initializeProductPage();
 } 
+
+function addToCart(product: Product) {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    const notification = document.createElement('div');
+    notification.className = 'fixed bottom-0 left-0 w-full bg-green-500 text-white p-4';
+    notification.textContent = 'Produkt tilføjet til kurv';
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
