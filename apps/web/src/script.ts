@@ -2,15 +2,8 @@
 import type { TProduct as Product } from "@gildedwebshop/server"
 
 let currentPage = Number(new URLSearchParams(window.location.search).get('page')) || 1;
-const productsPerPage = 20;
 let allProducts: Product[] = [];
-let totalProducts = 0;
-
-function paginateProducts(products: Product[], page: number, perPage: number) {
-    const start = (page - 1) * perPage;
-    const end = start + perPage;
-    return products.slice(start, end);
-}
+let totalPages = 0;
 
 function createLoadingSpinner() {
     const spinner = document.createElement('div');
@@ -80,8 +73,7 @@ async function retrieveProducts() {
         const firstPageResponse = await firstPageData.json();
         console.log('First page response:', firstPageResponse);
         
-        const maxPages = firstPageResponse.maxPages;
-        console.log('Max pages:', maxPages);
+        totalPages = firstPageResponse.maxPages;
 
         let apiUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?page=${currentPage}`;
         if (gender) {
@@ -107,7 +99,6 @@ async function retrieveProducts() {
         const products = data.data;
 
         allProducts = products;
-        totalProducts = products.length;
 
         const currentParams = new URLSearchParams(window.location.search);
         if (!currentParams.has('page')) {
@@ -115,10 +106,8 @@ async function retrieveProducts() {
             const newUrl = `${window.location.pathname}?${currentParams.toString()}`;
             window.history.pushState({}, '', newUrl);
         }
-
-        const paginatedProducts = paginateProducts(products, currentPage, productsPerPage);
         
-        displayProducts(paginatedProducts);
+        displayProducts(products);
         renderPagination();
         
         hideLoading();
@@ -175,8 +164,6 @@ function displayProducts(products: Product[]) {
 }
 
 function renderPagination() {
-    const totalPages = Math.ceil(totalProducts / productsPerPage);
-    
     const paginationContainer = document.createElement('div');
     paginationContainer.className = 'flex justify-center items-center gap-4 py-8';
     
@@ -191,8 +178,7 @@ function renderPagination() {
             searchParams.set('page', currentPage.toString());
             window.history.pushState({}, '', `${window.location.pathname}?${searchParams}`);
 
-            const paginatedProducts = paginateProducts(allProducts, currentPage, productsPerPage);
-            displayProducts(paginatedProducts);
+            displayProducts(allProducts);
             renderPagination();
         }
     });
@@ -212,8 +198,7 @@ function renderPagination() {
             searchParams.set('page', currentPage.toString());
             window.history.pushState({}, '', `${window.location.pathname}?${searchParams}`);
 
-            const paginatedProducts = paginateProducts(allProducts, currentPage, productsPerPage);
-            displayProducts(paginatedProducts);
+            displayProducts(allProducts);
             renderPagination();
         }
     });
@@ -237,8 +222,7 @@ function renderPagination() {
 window.addEventListener('popstate', () => {
     currentPage = Number(new URLSearchParams(window.location.search).get('page')) || 1;
     if (allProducts.length > 0) {
-        const paginatedProducts = paginateProducts(allProducts, currentPage, productsPerPage);
-        displayProducts(paginatedProducts);
+        displayProducts(allProducts);
         renderPagination();
     } else {
         retrieveProducts();
