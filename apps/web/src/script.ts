@@ -83,52 +83,31 @@ async function retrieveProducts() {
         const maxPages = firstPageResponse.maxPages;
         console.log('Max pages:', maxPages);
 
-        // Fetch all pages
-        const allPagesPromises = [];
-        for (let page = 1; page <= maxPages; page++) {
-            let apiUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?page=${page}`;
-            if (gender) {
-                apiUrl += `&gender=${gender}`;
-            }
-            if (category) {
-                apiUrl += `&category=${category}`;
-            }
-
-            allPagesPromises.push(
-                fetch(apiUrl, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    mode: 'cors',
-                }).then(res => res.json())
-            );
-        }
-
-        const allPagesResponses = await Promise.all(allPagesPromises);
-        let combinedProducts: Product[] = [];
-        for (const response of allPagesResponses) {
-            combinedProducts = [...combinedProducts, ...response.data];
-        }
-
-        console.log('Total products fetched:', combinedProducts.length);
-
-        let filteredProducts = combinedProducts;
+        let apiUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?page=${currentPage}`;
         if (gender) {
-            filteredProducts = filteredProducts.filter((product: Product) => 
-                product.gender.toLowerCase() === gender
-            );
+            apiUrl += `&gender=${gender}`;
         }
         if (category) {
-            filteredProducts = filteredProducts.filter((product: Product) => 
-                product.category.toLowerCase() === category
-            );
+            apiUrl += `&category=${category}`;
         }
 
-        console.log('Filtered products:', filteredProducts.length);
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            mode: 'cors',
+        });
 
-        allProducts = filteredProducts;
-        totalProducts = filteredProducts.length;
+        if (!response.ok) {
+            throw new Error('Failed to fetch products');
+        }
+
+        const data = await response.json();
+        const products = data.data;
+
+        allProducts = products;
+        totalProducts = products.length;
 
         const currentParams = new URLSearchParams(window.location.search);
         if (!currentParams.has('page')) {
@@ -137,8 +116,7 @@ async function retrieveProducts() {
             window.history.pushState({}, '', newUrl);
         }
 
-        const paginatedProducts = paginateProducts(filteredProducts, currentPage, productsPerPage);
-        console.log('Products to display:', paginatedProducts.length);
+        const paginatedProducts = paginateProducts(products, currentPage, productsPerPage);
         
         displayProducts(paginatedProducts);
         renderPagination();
