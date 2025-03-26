@@ -1,0 +1,1 @@
+ALTER TYPE "public"."categories" ADD VALUE 'Sko';

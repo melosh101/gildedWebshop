@@ -4,8 +4,8 @@ import { productTable, productVariantTable } from "./schema";
 function generateClothingProducts(totalProducts: number): any[] {
     const genders = ['Female', 'Male', 'Unisex'];
     const femaleCategories = ['Kjoler', 'Toppe', 'Bukser', "Accessories"];
-    const maleCategories = ['Skjorter', 'Jakker', 'Bukser', "Accessories"];
-    const unisexCategories = ['T-shirts', 'Sweatere', 'Jakker',"Accessories"];
+    const maleCategories = ['Skjorter', 'Sko', 'Bukser', "Accessories"];
+    const unisexCategories = ['T-shirts', 'Sweatere', 'Jakker', "Accessories"];
     const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
     const products = [];
@@ -14,9 +14,9 @@ function generateClothingProducts(totalProducts: number): any[] {
       const gender = genders[Math.floor(Math.random() * genders.length)];
       let category: string;
   
-      if (gender === 'female') {
+      if (gender === 'Female') {
         category = femaleCategories[Math.floor(Math.random() * femaleCategories.length)];
-      } else if (gender === 'male') {
+      } else if (gender === 'Male') {
         category = maleCategories[Math.floor(Math.random() * maleCategories.length)];
       } else {
         category = unisexCategories[Math.floor(Math.random() * unisexCategories.length)];
@@ -25,12 +25,16 @@ function generateClothingProducts(totalProducts: number): any[] {
       const productName = `${gender} ${category} ${i + 1}`;
       const numVariants = Math.floor(Math.random() * 3) + 3; // 3 to 5 variants
       const productPrice = Math.floor(Math.random() * 1000) + 50; // Random price between 50 and 1050
-      const productDescription = `A stylish ${productName} for ${gender}s.`;
+      const productDescription = `A stylish ${productName} for ${gender === 'Unisex' ? 'everyone' : `${gender}s`}.`;
       const imageUrl = `https://placehold.co/150?text=${encodeURIComponent(productName)}&font=raleway`;
       const variants = [];
+      
+      // Ensure we use different sizes for each variant
+      const shuffledSizes = [...sizes].sort(() => Math.random() - 0.5).slice(0, numVariants);
+      
       for (let j = 0; j < numVariants; j++) {
         const price = Math.floor(Math.random() * 1000) + 50; // Random price between 50 and 1050
-        const size = sizes[Math.floor(Math.random() * sizes.length)];
+        const size = shuffledSizes[j];
   
         variants.push({
           price,
@@ -53,7 +57,7 @@ function generateClothingProducts(totalProducts: number): any[] {
     return products;
   }
 
-const clothingProducts = generateClothingProducts(2000);
+const clothingProducts = generateClothingProducts(8500);
 
 clothingProducts.forEach(async (product, i) => {
 

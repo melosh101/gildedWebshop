@@ -6,7 +6,7 @@ import { text, integer, pgTable } from "drizzle-orm/pg-core";
 export const sizeEnum = pgEnum("size", ["XS", "S", "M", "L", "XL", "XXL"])
 export const genderEnum = pgEnum("gender", ["Male", "Female", "Unisex"])
 
-export const categoryEnum = pgEnum("categories", ["Skjorter", "Jakker", "T-shirts", "Accessories","Kjoler" ,"Toppe" ,"Bukser" ,"Sweatere"])
+export const categoryEnum = pgEnum("categories", ["Skjorter", "Jakker", "T-shirts", "Accessories","Kjoler" ,"Toppe" ,"Bukser" ,"Sweatere", "Sko"])
 export const productTable = pgTable("product", {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     category: categoryEnum().notNull(),

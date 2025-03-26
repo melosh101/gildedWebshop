@@ -1,14 +1,15 @@
 'use strict';
-import type { TProduct as Product } from "@gildedwebshop/server"
+import type { TProduct as Product, TListResponse } from "@gildedwebshop/server"
 
 let currentPage = Number(new URLSearchParams(window.location.search).get('page')) || 1;
 let allProducts: Product[] = [];
-let totalPages = 0;
+let maxPages = 0;
+
 
 function createLoadingSpinner() {
     const spinner = document.createElement('div');
     spinner.id = 'loading-spinner';
-    spinner.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-80 z-50';
+    spinner.className = 'w-full h-full flex items-center justify-center bg-white bg-opacity-80 z-50';
     
     const spinnerInner = document.createElement('div');
     spinnerInner.className = 'animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-black';
@@ -20,7 +21,11 @@ function createLoadingSpinner() {
 function showLoading() {
     const existingSpinner = document.getElementById('loading-spinner');
     if (!existingSpinner) {
-        document.body.appendChild(createLoadingSpinner());
+        const productsContainer = document.getElementById('products-container');
+        if (productsContainer) {
+            productsContainer.innerHTML = '';
+            productsContainer.appendChild(createLoadingSpinner());
+        }
     }
 }
 
@@ -45,45 +50,21 @@ async function retrieveProducts() {
             if (gender) newUrl.searchParams.set('gender', gender);
             if (category) newUrl.searchParams.set('category', category);
             if (currentPage > 1) newUrl.searchParams.set('page', currentPage.toString());
-            window.history.pushState({}, '', newUrl.toString());
+            window.location.href = newUrl.toString();
         }
 
-        let firstPageUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?page=1`;
+        const req = new URLSearchParams();
+        req.append("page", currentPage.toString());
         if (gender) {
-            firstPageUrl += `&gender=${gender}`;
+            req.append("gender", gender.charAt(0).toUpperCase() + gender.slice(1));
         }
         if (category) {
-            firstPageUrl += `&category=${category}`;
+            req.append("category", category.charAt(0).toUpperCase() + category.slice(1));
         }
 
-        console.log('Fetching first page:', firstPageUrl);
-
-        const firstPageData = await fetch(firstPageUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            mode: 'cors',
-        });
-
-        if (!firstPageData.ok) {
-            throw new Error('Failed to fetch products');
-        }
-
-        const firstPageResponse = await firstPageData.json();
-        console.log('First page response:', firstPageResponse);
-        
-        totalPages = firstPageResponse.maxPages;
-
-        let apiUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?page=${currentPage}`;
-        if (gender) {
-            apiUrl += `&gender=${gender}`;
-        }
-        if (category) {
-            apiUrl += `&category=${category}`;
-        }
-
-        const response = await fetch(apiUrl, {
+        console.log('Fetching first page:', );
+        const firstPageUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?${req.toString()}`;
+        const response = await fetch(firstPageUrl, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,19 +76,13 @@ async function retrieveProducts() {
             throw new Error('Failed to fetch products');
         }
 
-        const data = await response.json();
+        const data = await response.json() as TListResponse;
         const products = data.data;
 
         allProducts = products;
-
-        const currentParams = new URLSearchParams(window.location.search);
-        if (!currentParams.has('page')) {
-            currentParams.set('page', '1');
-            const newUrl = `${window.location.pathname}?${currentParams.toString()}`;
-            window.history.pushState({}, '', newUrl);
-        }
         
-        displayProducts(products);
+        maxPages = data.maxPages;
+        displayProducts(allProducts);
         renderPagination();
         
         hideLoading();
@@ -163,7 +138,7 @@ function displayProducts(products: Product[]) {
     container.appendChild(productContainer);
 }
 
-function renderPagination() {
+function renderPagination() {    
     const paginationContainer = document.createElement('div');
     paginationContainer.className = 'flex justify-center items-center gap-4 py-8';
     
@@ -177,29 +152,28 @@ function renderPagination() {
             const searchParams = new URLSearchParams(window.location.search);
             searchParams.set('page', currentPage.toString());
             window.history.pushState({}, '', `${window.location.pathname}?${searchParams}`);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            retrieveProducts();
 
-            displayProducts(allProducts);
-            renderPagination();
         }
     });
     
     const pageIndicator = document.createElement('span');
-    pageIndicator.textContent = `Side ${currentPage} af ${totalPages}`;
+    pageIndicator.textContent = `Side ${currentPage} af ${maxPages}`;
     pageIndicator.className = 'text-lg font-medium';
     
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Næste';
-    nextButton.className = `px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`;
-    nextButton.disabled = currentPage === totalPages;
+    nextButton.className = `px-4 py-2 rounded-md ${currentPage === maxPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`;
+    nextButton.disabled = currentPage === maxPages;
     nextButton.addEventListener('click', () => {
-        if (currentPage < totalPages) {
+        if (currentPage < maxPages) {
             currentPage++;
             const searchParams = new URLSearchParams(window.location.search);
             searchParams.set('page', currentPage.toString());
             window.history.pushState({}, '', `${window.location.pathname}?${searchParams}`);
-
-            displayProducts(allProducts);
-            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            retrieveProducts();
         }
     });
     
@@ -218,16 +192,6 @@ function renderPagination() {
         productsContainer.after(paginationContainer);
     }
 }
-
-window.addEventListener('popstate', () => {
-    currentPage = Number(new URLSearchParams(window.location.search).get('page')) || 1;
-    if (allProducts.length > 0) {
-        displayProducts(allProducts);
-        renderPagination();
-    } else {
-        retrieveProducts();
-    }
-});
 
 if (window.location.pathname === '/shop') {
     let productsContainer = document.getElementById('products-container');

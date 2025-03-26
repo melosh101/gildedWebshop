@@ -15,6 +15,13 @@
       "when": 1742975355036,
       "tag": "0001_opposite_ma_gnuci",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1742982425826,
+      "tag": "0002_pretty_justin_hammer",
+      "breakpoints": true
     }
   ]
 }
