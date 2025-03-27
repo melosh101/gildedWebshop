@@ -60,7 +60,7 @@ const products: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       offset: (body.data.page - 1) * 20
     });
     console.log("counting")
-    const [totalProds] = await db.select({count: sql`count(*)`.mapWith(Number)}).from(productTable);
+    const [totalProds] = await db.select({count: sql`count(*)`.mapWith(Number)}).from(productTable).where(and(...filter));
     console.log(totalProds.count);
     return {
       pageSize: body.data.count,
