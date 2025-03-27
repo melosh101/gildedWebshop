@@ -13,6 +13,10 @@
 		<title>Elegance | Produkt</title>
 	</head>
 	<body>
+		<script type="module">
+			import { updateCartCount } from "../src/cart.ts";
+			updateCartCount();
+		</script>
 		<main class="min-h-screen bg-white text-black">
 			<div class="bg-green-500 text-white py-2 sm:py-3 text-center">
 				<p class="text-sm md:text-lg font-medium uppercase">
@@ -83,7 +87,8 @@
 						</svg>
 						<span
 							class="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
-							>0
+							id="cart-count"
+						>
 						</span>
 					</a>
 				</div>

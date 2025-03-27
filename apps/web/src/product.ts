@@ -1,5 +1,5 @@
 import type { TProductWithVariants as Product } from "@gildedwebshop/server"
-
+import { addToCart } from "./cart.ts"
 
 async function fetchProduct(id: string): Promise<Product> {
 
@@ -101,7 +101,18 @@ function displayProduct(product: Product) {
     addToCartButton.className = 'bg-black text-white py-3 px-6 rounded-md hover:bg-gray-800 transition-colors';
     addToCartButton.textContent = 'Tilføj til kurv';
     addToCartButton.addEventListener('click', () => {
-        addToCart(product);
+        const productToAdd = {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+        };
+        
+        addToCart(productToAdd);
+        addToCartButton.textContent = 'Tilføjet!';
+        setTimeout(() => {
+            addToCartButton.textContent = 'Læg i kurv';
+        }, 2000);
     })
 
     infoSection.appendChild(nameHeading);
@@ -167,17 +178,3 @@ async function initializeProductPage() {
 if (window.location.pathname.includes('/product/index.html')) {
     initializeProductPage();
 } 
-
-function addToCart(product: Product) {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    cart.push(product);
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    const notification = document.createElement('div');
-    notification.className = 'fixed bottom-0 left-0 w-full bg-green-500 text-white p-4';
-    notification.textContent = 'Produkt tilføjet til kurv';
-    document.body.appendChild(notification);
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
-}
