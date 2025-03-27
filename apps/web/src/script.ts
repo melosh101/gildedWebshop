@@ -4,7 +4,7 @@ import type { TProduct as Product, TListResponse } from "@gildedwebshop/server"
 let currentPage = Number(new URLSearchParams(window.location.search).get('page')) || 1;
 let allProducts: Product[] = [];
 let maxPages = 0;
-
+let prefetchedPages: Record<number, Product[]> = {};
 
 function createLoadingSpinner() {
     const spinner = document.createElement('div');
@@ -36,35 +36,27 @@ function hideLoading() {
     }
 }
 
-async function retrieveProducts() {
-    try {
-        showLoading();
-        const searchParams = new URLSearchParams(window.location.search);
-        const gender = searchParams.get('gender')?.toLowerCase();
-        const category = searchParams.get('category')?.toLowerCase();
-        
-        console.log('Fetching products with params:', { gender, category });
-        
-        if (window.location.pathname !== '/shop') {
-            const newUrl = new URL('/shop', window.location.origin);
-            if (gender) newUrl.searchParams.set('gender', gender);
-            if (category) newUrl.searchParams.set('category', category);
-            if (currentPage > 1) newUrl.searchParams.set('page', currentPage.toString());
-            window.location.href = newUrl.toString();
-        }
+async function prefetchPages(pageIdx: number) {
+    if(prefetchedPages[pageIdx]) return;
 
+    try {
         const req = new URLSearchParams();
-        req.append("page", currentPage.toString());
-        if (gender) {
+        req.append("page", pageIdx.toString());
+
+        const searchParams = new URLSearchParams(window.location.search);
+        const gender = searchParams.get('gender');
+        const category = searchParams.get('category');
+
+        if(gender) {
             req.append("gender", gender.charAt(0).toUpperCase() + gender.slice(1));
         }
-        if (category) {
+
+        if(category) {
             req.append("category", category.charAt(0).toUpperCase() + category.slice(1));
         }
 
-        console.log('Fetching first page:', );
-        const firstPageUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?${req.toString()}`;
-        const response = await fetch(firstPageUrl, {
+        const url = `https://gildedwebshop.milasholsting.dk/api/products/list?${req.toString()}`;
+        const response = await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -72,19 +64,78 @@ async function retrieveProducts() {
             mode: 'cors',
         });
 
-        if (!response.ok) {
+        if(!response.ok) {
             throw new Error('Failed to fetch products');
         }
-
-        const data = await response.json() as TListResponse;
-        const products = data.data;
-
-        allProducts = products;
         
-        maxPages = data.maxPages;
+        const data = await response.json() as TListResponse;
+        prefetchedPages[pageIdx] = data.data;
+    } catch (error) {
+        console.error('Error prefetching page:', error);
+    }
+}
+
+async function retrieveProducts() {
+    try {
+        showLoading();
+
+        if(prefetchedPages[currentPage]) {
+            allProducts = prefetchedPages[currentPage];
+            displayProducts(allProducts);
+            delete prefetchedPages[currentPage];
+        } else {
+            const searchParams = new URLSearchParams(window.location.search);
+            const gender = searchParams.get('gender');
+            const category = searchParams.get('category');
+            
+            console.log('Fetching products with params:', { gender, category });
+            
+            if (window.location.pathname !== '/shop') {
+                const newUrl = new URL('/shop', window.location.origin);
+                if (gender) newUrl.searchParams.set('gender', gender);
+                if (category) newUrl.searchParams.set('category', category);
+                if (currentPage > 1) newUrl.searchParams.set('page', currentPage.toString());
+                window.location.href = newUrl.toString();
+            }
+
+            const req = new URLSearchParams();
+            req.append("page", currentPage.toString());
+            if (gender) {
+                req.append("gender", gender.charAt(0).toUpperCase() + gender.slice(1));
+            }
+            if (category) {
+                req.append("category", category.charAt(0).toUpperCase() + category.slice(1));
+            }
+
+            console.log('Fetching first page:', );
+            const firstPageUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?${req.toString()}`;
+            const response = await fetch(firstPageUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                mode: 'cors',
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch products');
+            }
+
+            const data = await response.json() as TListResponse;
+            allProducts = data.data;
+            maxPages = data.maxPages;
+        }
+
         displayProducts(allProducts);
         renderPagination();
-        
+
+        if(currentPage < maxPages) {
+            await prefetchPages(currentPage + 1);
+        }
+        if(currentPage > 1) {
+            await prefetchPages(currentPage - 1);
+        }
+            
         hideLoading();
     } catch (error) {
         hideLoading();
@@ -157,6 +208,12 @@ function renderPagination() {
 
         }
     });
+
+    prevButton.addEventListener('mouseenter', () => {
+        if(currentPage > 1) {
+            prefetchPages(currentPage - 1);
+        }
+    });
     
     const pageIndicator = document.createElement('span');
     pageIndicator.textContent = `Side ${currentPage} af ${maxPages}`;
@@ -174,6 +231,12 @@ function renderPagination() {
             window.history.pushState({}, '', `${window.location.pathname}?${searchParams}`);
             window.scrollTo({ top: 0, behavior: 'smooth' });
             retrieveProducts();
+        }
+    });
+
+    nextButton.addEventListener('mouseenter', () => {
+        if(currentPage < maxPages) {
+            prefetchPages(currentPage + 1);
         }
     });
     
