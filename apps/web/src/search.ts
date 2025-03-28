@@ -1,3 +1,50 @@
+import { MeiliSearch } from "meilisearch";
+import {SEARCH_KEY} from "../env"
+import { TProduct } from "@gildedwebshop/server";
+
+const searchController = new AbortController();
+
+const searchCLient = new MeiliSearch({
+    host: "https://meilisearch.milasholsting.dk",
+    apiKey: SEARCH_KEY
+})
+const searchIndex = searchCLient.index("products");
+
+searchController.signal.addEventListener("abort", () => {
+    console.log("Search aborted")
+});
+
+var searchResults: TProduct[];
+var isActive = false;
+
+function debounce<T extends (...args: any[]) => any>(
+    func: T,
+    delay: number
+  ): (...args: Parameters<T>) => void {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  
+    return (...args: Parameters<T>) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+  
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  }
+  
+
+async function searchProducts(query: string) {
+    const res = await searchIndex.search(query, {
+        limit: 5,
+        attributesToRetrieve: ["name", "price", "image", "id"]
+    }, );
+
+    return res.hits as TProduct[];
+}
+
+
 function initializeSearch() {
 	const searchInput = document.querySelector('input[type="text"]') as HTMLInputElement;
 	const searchContainer = document.querySelector('.search-container') as HTMLElement;
@@ -5,34 +52,43 @@ function initializeSearch() {
 	if (searchInput && searchContainer) {
 		searchInput.addEventListener('focus', () => {
 			searchContainer.classList.remove('hidden');
+            isActive = true;
 		});
 
 		searchInput.addEventListener('blur', () => {
 			searchContainer.classList.add('hidden');
+            isActive = false;
 		});
+        searchInput.addEventListener('input', async () => {
+            debounce(async () => {
+                if (!searchInput.value) {
+                    searchResults = [];
+                    return;
+                }
+                searchResults = await searchProducts(searchInput.value);
+                initializeSearchResults(searchResults);
+            }, 500)();
+
+            searchController.abort();
+        });
 	}
 }
 
-function initializeSearchResults() {
+function initializeSearchResults(products: TProduct[]) {
     const searchResults = document.getElementById('search-results');
     if (!searchResults) return;
+    searchResults.innerHTML = '';
 
-	// Implement product search
-    const products = [
-        {
-            id: 1,
-            name: "Elegant Kjole",
-            price: 899,
-            image: "https://placehold.co/150x150"
-        }
-    ]
 
     products.forEach(product => {
         const productElement = document.createElement('div');
-        productElement.className = 'flex items-center gap-4 p-2 hover:bg-gray-50 transition-colors';
+        productElement.className = 'flex items-center gap-4 p-2 hover:bg-stone-300 duration-200 transition-colors hover:bg-opacity-50';
         
         const imageContainer = document.createElement('div');
         imageContainer.className = 'w-20 h-20 flex-shrink-0';
+
+        const linkThing = document.createElement('a');
+        linkThing.href = `/product/index.html?id=${product.id}`;
         
         const image = document.createElement('img');
         image.src = product.image;
@@ -56,10 +112,12 @@ function initializeSearchResults() {
         
         productElement.appendChild(imageContainer);
         productElement.appendChild(details);
+        linkThing.appendChild(productElement);
         
-        searchResults.appendChild(productElement);
+        searchResults.appendChild(linkThing);
     });
 }
 
+
 initializeSearch();
-initializeSearchResults();
+

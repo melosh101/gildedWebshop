@@ -69,6 +69,11 @@ const products: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       data: prods
     };
   })
+
+  fastify.get("/listall", async (req, res) => {
+    const prods = await db.query.productTable.findMany();
+    return prods
+  })
 }
 
 export default products;
