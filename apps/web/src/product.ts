@@ -3,7 +3,7 @@ import { addToCart } from "./cart.ts"
 
 async function fetchProduct(id: string): Promise<Product> {
 
-    const response = await fetch(`https://gildedwebshop.milasholsting.dk/api/products?id=${id}`, {
+    const response = await fetch(`https://elegance.milasholsting.dk/api/products?id=${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

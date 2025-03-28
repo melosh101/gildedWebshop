@@ -55,7 +55,7 @@ async function prefetchPages(pageIdx: number) {
             req.append("category", category.charAt(0).toUpperCase() + category.slice(1));
         }
 
-        const url = `https://gildedwebshop.milasholsting.dk/api/products/list?${req.toString()}`;
+        const url = `https://elegance.milasholsting.dk/api/products/list?${req.toString()}`;
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -108,7 +108,7 @@ async function retrieveProducts() {
             }
 
             console.log('Fetching first page:', );
-            const firstPageUrl = `https://gildedwebshop.milasholsting.dk/api/products/list?${req.toString()}`;
+            const firstPageUrl = `https://elegance.milasholsting.dk/api/products/list?${req.toString()}`;
             const response = await fetch(firstPageUrl, {
                 method: 'GET',
                 headers: {
