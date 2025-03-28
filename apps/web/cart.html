@@ -23,14 +23,19 @@
 				class="grid grid-cols-3 items-center px-4 sm:px-8 md:px-16 lg:px-40 py-4 sm:py-6 lg:py-10"
 			>
 				<div class="flex items-center">
-					<div
-						class="border-b border-gray-200 focus-within:border-gray-700 transition-colors w-16 sm:w-auto"
-					>
-						<input
-							type="text"
-							placeholder="SØG"
-							class="bg-transparent focus:outline-none pr-1 text-sm w-full"
-						/>
+					<div class="relative">
+						<div
+							class="border-b border-gray-200 focus-within:border-gray-700 transition-colors w-16 sm:w-auto flex items-center"
+						>
+							<input
+								type="text"
+								placeholder="SØG"
+								class="bg-transparent focus:outline-none pr-1 text-sm w-full"
+							/>
+						</div>
+						<div class="hidden search-container absolute top-full left-0 w-64 bg-white shadow-lg rounded-md mt-1 z-50">
+							<div id="search-results" class="max-h-96 overflow-y-auto"></div>
+						</div>
 					</div>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -705,5 +710,6 @@
 		</main>
 		<script type="module" src="./src/main.ts"></script>
 		<script type="module" src="./src/cart.ts"></script>
+		<script type="module" src="./src/search.ts"></script>
 	</body>
 </html>
