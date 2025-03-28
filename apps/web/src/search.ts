@@ -15,7 +15,6 @@ searchController.signal.addEventListener("abort", () => {
 });
 
 var searchResults: TProduct[];
-var isActive = false;
 
 function debounce<T extends (...args: any[]) => any>(
     func: T,
@@ -52,7 +51,6 @@ function initializeSearch() {
 	if (searchInput && searchContainer) {
 		searchInput.addEventListener('focus', () => {
 			searchContainer.classList.remove('hidden');
-            isActive = true;
 		});
 
 		searchInput.addEventListener('blur', () => {
