@@ -56,8 +56,10 @@ function initializeSearch() {
 		});
 
 		searchInput.addEventListener('blur', () => {
-			searchContainer.classList.add('hidden');
-            isActive = false;
+			setTimeout(() => {
+                searchContainer.classList.add('hidden');
+            }, 100);
+        
 		});
         searchInput.addEventListener('input', async () => {
             debounce(async () => {
@@ -113,7 +115,7 @@ function initializeSearchResults(products: TProduct[]) {
         productElement.appendChild(imageContainer);
         productElement.appendChild(details);
         linkThing.appendChild(productElement);
-        
+
         searchResults.appendChild(linkThing);
     });
 }
