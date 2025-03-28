@@ -492,5 +492,30 @@
 		<script type="module" src="../src/main.ts"></script>
 		<script type="module" src="../src/product.ts"></script>
 		<script type="module" src="../src/search.ts"></script>
+		<script>
+			function incrementQuantity() {
+				const input = document.getElementById('quantity');
+				input.value = parseInt(input.value) + 1;
+			}
+
+			function decrementQuantity() {
+				const input = document.getElementById('quantity');
+				if (parseInt(input.value) > 1) {
+					input.value = parseInt(input.value) - 1;
+				}
+			}
+
+			document.querySelector('.add-to-cart-button').addEventListener('click', () => {
+				const quantity = parseInt(document.getElementById('quantity').value);
+				const product = {
+					id: id,
+					name: name,
+					price: price,
+					image: image,
+					quantity: quantity
+				};
+				addToCart(product);
+			});
+		</script>
 	</body>
 </html>
