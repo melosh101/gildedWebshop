@@ -8,11 +8,11 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "build:web": "turbo run build --filter=@gildedwebshop/web",
-    "dev:web": "turbo run dev --filter=@gildedwebshop/web"
+    "dev:web": "turbo run dev --filter=@gildedwebshop/web",
+    "turbo": "^2.4.4",
   },
   "devDependencies": {
     "prettier": "^3.5.3",
-    "turbo": "^2.4.4",
     "typescript": "5.8.2"
   },
   "engines": {
